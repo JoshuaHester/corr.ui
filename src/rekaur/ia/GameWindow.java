@@ -4,7 +4,7 @@ import javax.imageio.*;
 import java.awt.*;
 import java.io.*;
 
-public class GameWindow extends javax.swing.JFrame {
+public class GameWindow{
 
     private JFrame baseWindow;
     private int width = 800;
@@ -17,7 +17,7 @@ public class GameWindow extends javax.swing.JFrame {
         baseWindow = new JFrame(windowName);
         baseWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         baseWindow.setSize(width,height);
-        baseWindow.setVisible(true);
+        baseWindow.setResizable(false);
         setGameIcon("Art/kricon.png");
         setBackgroundImage(backgroundFilepath);
     }
@@ -30,10 +30,17 @@ public class GameWindow extends javax.swing.JFrame {
         baseWindow.setSize(width, height);
         this.width = width;
         this.height = height;
+        /* TODO add resolution scaling */
     }
 
     public void setFullScreen(){
         baseWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
+    }
+
+    public void addScreen(Component component, int index){
+        baseWindow.add(component);
+        baseWindow.getLayeredPane().setLayer(component,index);
+        baseWindow.setVisible(true);
     }
 
     public void setGameIcon(String iconFilepath){
@@ -44,16 +51,12 @@ public class GameWindow extends javax.swing.JFrame {
     public void setBackgroundImage(String backgroundFilepath){
         Image image = convertPathToImage(backgroundFilepath);
         background = new JLabel(new ImageIcon(image));
-        baseWindow.getContentPane().add(background);
-        baseWindow.setVisible(true);
+        addScreen(background,-30000);
     }
 
     public void setDirectory(String filepath){
         directoryFilepath = filepath;
     }
-
-
-
 
     Image convertPathToImage(String filepath){
         Image image;
@@ -67,17 +70,10 @@ public class GameWindow extends javax.swing.JFrame {
         return null;
     }
 
-
-
-
-
     String getFullPath(String filepath){
         String path = directoryFilepath + "/" + filepath;
         return path;
     }
 
-    public static void main(String args[]) {
-        GameWindow gui = new GameWindow("test");
-        //gui.setFullScreen();
-    }
+
 }
