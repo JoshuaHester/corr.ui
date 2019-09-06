@@ -4,6 +4,12 @@ import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+/*
+A generic button type.
+
+All other buttons i this package inherit this base type
+*/
+
 public class GameButton extends JButton implements ActionListener {
     private GameFunction function;
     private String name;

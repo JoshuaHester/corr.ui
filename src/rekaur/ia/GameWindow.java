@@ -3,22 +3,25 @@ import javax.swing.*;
 import javax.imageio.*;
 import java.awt.*;
 import java.io.*;
+import java.net.URL;
 
 public class GameWindow{
 
     private JFrame baseWindow;
     private int width = 800;
     private int height = 600;
-    private String directoryFilepath = "C:/Dev/Projects/production/rekaur.ia/rekaur/ia";
-    private String backgroundFilepath ="Art/krlogo.png";
+    private String directoryFilepath;
+    private String backgroundFilepath = "rekaur/ia/Art/krlogo.png";
+    private String iconFilepath = "rekaur/ia/Art/kricon.png";
     private JLabel background;
 
     public GameWindow(String windowName) {
+        setDirectory();
         baseWindow = new JFrame(windowName);
         baseWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         baseWindow.setSize(width,height);
         baseWindow.setResizable(false);
-        setGameIcon("Art/kricon.png");
+        setGameIcon(iconFilepath);
         setBackgroundImage(backgroundFilepath);
     }
 
@@ -54,8 +57,10 @@ public class GameWindow{
         addScreen(background,-30000);
     }
 
-    public void setDirectory(String filepath){
-        directoryFilepath = filepath;
+    public void setDirectory(){
+        URL location = getClass().getProtectionDomain().getCodeSource().getLocation();
+        directoryFilepath = location.getPath();
+        System.out.println(directoryFilepath);
     }
 
     Image convertPathToImage(String filepath){
