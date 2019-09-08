@@ -15,6 +15,4 @@ public class MenuScreen extends JPanel{
         add(new MenuButton(name,function));
         setVisible(true);
     }
-
-
 }

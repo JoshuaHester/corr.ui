@@ -25,6 +25,7 @@ public class GameWindow{
     public GameWindow(String windowName, int width, int height) {
         setDirectory();
         setDefaultDimensions(width, height);
+        new Scalable(width,height);
         baseWindow = new JFrame(windowName);
         baseWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         baseWindow.setResizable(false);
@@ -48,19 +49,10 @@ public class GameWindow{
     }
 
     public void changeWindowSize(int width, int height){
-        int widthRatio = width / defaultWidth;
-        int heightRatio = height / defaultHeight;
         if(graphicsHandler.isDisplayChangeSupported()){
             graphicsHandler.setDisplayMode(new DisplayMode(width, height, bitdepth, refreshRate));
         }
-        //rescales the individual components
-        for(int i = 0; i<baseWindow.getComponentCount();i++){
-            baseWindow.getComponent(i).setSize(
-                    widthRatio * baseWindow.getComponent(i).getWidth(),
-                    heightRatio * baseWindow.getComponent(i).getHeight()
-            );
-
-        }
+        Scalable.scaleComponents(width,height);
 
     }
 
@@ -83,7 +75,7 @@ public class GameWindow{
 
     public void setBackgroundImage(String backgroundFilepath){
         Image image = convertPathToImage(backgroundFilepath);
-        background = new ImageLabel(new ImageIcon(image));
+        background = new ScalableImageLabel(new ImageIcon(image));
         addScreen(background,-30000);
     }
 
