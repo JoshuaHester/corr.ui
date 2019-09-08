@@ -20,9 +20,13 @@ public class ScalableImageLabel extends ImageLabel {
         int oldWidth = getOriginalWidth();
         int oldHeight = getOriginalHeight();
         setSize(Scalable.getNewWidthOfComponent(width,oldWidth),Scalable.getNewHeightOfComponent(height,oldHeight));
-        System.out.println(getWidth()+"x"+getHeight());
-        setVisible(true);
     }
 
+
+
+    @Override
+    public void paint(Graphics g){
+        g.drawImage(getImage(),getXCoord(),getYCoord(),getWidth(),getHeight(),this);
+    }
 
 }

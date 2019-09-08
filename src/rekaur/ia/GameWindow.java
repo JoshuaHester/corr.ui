@@ -53,13 +53,10 @@ public class GameWindow{
             graphicsHandler.setDisplayMode(new DisplayMode(width, height, bitdepth, refreshRate));
         }
         Scalable.scaleComponents(width,height);
-
     }
 
     public void setFullScreen(){
         graphicsHandler.setFullScreenWindow(baseWindow);
-
-        baseWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
     }
 
     public void addScreen(Component component, int index){
