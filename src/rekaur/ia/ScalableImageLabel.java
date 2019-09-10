@@ -15,14 +15,11 @@ public class ScalableImageLabel extends ImageLabel {
         Scalable.addComponent(this);
     }
 
-
     public void scale(int width,int height){
         int oldWidth = getOriginalWidth();
         int oldHeight = getOriginalHeight();
         setSize(Scalable.getNewWidthOfComponent(width,oldWidth),Scalable.getNewHeightOfComponent(height,oldHeight));
     }
-
-
 
     @Override
     public void paint(Graphics g){

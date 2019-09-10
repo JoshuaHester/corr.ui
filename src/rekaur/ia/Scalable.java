@@ -1,5 +1,6 @@
 package rekaur.ia;
 
+import javax.swing.*;
 import java.awt.*;
 import java.util.LinkedList;
 import java.util.List;
@@ -16,10 +17,15 @@ public class Scalable {
 
     public static void scaleComponents(int newWidth,int newHeight){
         for( int i = 0; i < scalableItems.size(); i++){
-            ScalableImageLabel comp = (ScalableImageLabel) scalableItems.get(i);
-            System.out.println(comp.getSize());
-            comp.scale(newWidth,newHeight);
-            System.out.println(comp.getSize());
+            try {
+                ScalableImageLabel comp = (ScalableImageLabel) scalableItems.get(i);
+                comp.scale(newWidth, newHeight);
+            }catch(Exception e){};
+            try{
+                JLayeredPane comp = (JLayeredPane) scalableItems.get(i);
+                comp.setSize(new Dimension(newWidth, newHeight));
+            }catch(Exception e){};
+
         }
     }
 

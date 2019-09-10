@@ -2,8 +2,6 @@ package rekaur.ia;
 import javax.swing.*;
 import javax.imageio.*;
 import java.awt.*;
-import java.awt.event.WindowAdapter;
-import java.awt.event.WindowEvent;
 import java.io.*;
 import java.net.URL;
 
@@ -21,23 +19,34 @@ public class GameWindow{
     private String iconFilepath = "rekaur/ia/Art/kricon.png";
     private JLabel background;
     private GraphicsDevice graphicsHandler;
+    private JLayeredPane layeredPane;
 
     public GameWindow(String windowName, int width, int height) {
+
         setDirectory();
         setDefaultDimensions(width, height);
         new Scalable(width,height);
         baseWindow = new JFrame(windowName);
+
         baseWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         baseWindow.setResizable(false);
-        graphicsHandler = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
         setGameIcon(iconFilepath);
-        setBackgroundImage(backgroundFilepath);
+
+        baseWindow.setLayout(new BorderLayout());
+        graphicsHandler = GraphicsEnvironment.getLocalGraphicsEnvironment().getDefaultScreenDevice();
+        //background
+        setBackgroundImage();
+        //layeredPane
+        layeredPane = new JLayeredPane();
+        layeredPane.setMinimumSize(new Dimension(640,480));
+        Scalable.addComponent(layeredPane);
+        baseWindow.add(layeredPane, BorderLayout.CENTER);
+        //menu layer
+
+
 
         setFullScreen();
         changeWindowSize(defaultWidth,defaultHeight);
-
-
-
     }
 
     public GameWindow() {
@@ -58,11 +67,13 @@ public class GameWindow{
     public void setFullScreen(){
         graphicsHandler.setFullScreenWindow(baseWindow);
     }
-
     public void addScreen(Component component, int index){
-        baseWindow.add(component);
-        baseWindow.getLayeredPane().setLayer(component,index);
-        baseWindow.setVisible(true);
+        layeredPane.setLayer(component,index);
+        layeredPane.add(component);
+    }
+
+    public void addMenuPanel(CardPanel panel){
+        addScreen(panel,300);
     }
 
     public void setGameIcon(String iconFilepath){
@@ -70,10 +81,24 @@ public class GameWindow{
         baseWindow.setIconImage(image);
     }
 
+    /**
+     * Sets the background image using the provided filepath.
+     * The image will automatically resize to fit the screen.
+     * @param backgroundFilepath filepath of the image to be used
+     */
     public void setBackgroundImage(String backgroundFilepath){
         Image image = convertPathToImage(backgroundFilepath);
         background = new ScalableImageLabel(new ImageIcon(image));
-        addScreen(background,-30000);
+        baseWindow.getLayeredPane().setLayer(background,-3000);
+        baseWindow.add(background,BorderLayout.CENTER);
+    }
+
+    /**
+     * Sets the background using the default file.
+     * @see GameWindow setBackgroundImage(String backgroundFilepath)
+     */
+    public void setBackgroundImage(){
+        setBackgroundImage(backgroundFilepath);
     }
 
     public void setDirectory(){
@@ -81,9 +106,19 @@ public class GameWindow{
         directoryFilepath = location.getPath();
     }
 
+    /**
+     * Sets the starting dimensions of the window.
+     * This is primarily used for scaling components during resize.
+     * @param width the starting width.
+     * @param height the starting height
+     */
     public void setDefaultDimensions(int width, int height){
         defaultWidth = width;
         defaultHeight = height;
+    }
+
+    public JFrame getFrame(){
+        return baseWindow;
     }
 
     Image convertPathToImage(String filepath){

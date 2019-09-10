@@ -1,4 +1,7 @@
 package rekaur.ia;
+
+import javax.swing.*;
+
 public class Demo {
 
     public static int[] getStandardResolutions(int i){
@@ -41,9 +44,10 @@ public class Demo {
         return a;
     }
 
-    public static void main(String args[]) {
+    public static void makeGUI(){
         GameWindow gui = new GameWindow();
-        MenuScreen mainMenu = new MenuScreen();
+        CardPanel menuPanel = new CardPanel();
+        MenuScreen mainMenu = new MenuScreen(100,500,"menu");
         //add resolution buttons
         int w;
         int h;
@@ -56,12 +60,30 @@ public class Demo {
             mainMenu.addButton(name, () -> gui.changeWindowSize(width,height));
         }
 
-
         mainMenu.addButton("Fullscreen", () -> gui.setFullScreen());
+        mainMenu.addButton("bird", () -> menuPanel.show("test"));
         mainMenu.addButton("close",()-> System.exit(0));
 
 
-        gui.addScreen(mainMenu,300);
+        menuPanel.addScreen(mainMenu);
+        MenuScreen test = new MenuScreen(50,50,"test");
+        test.addButton("bird",() -> menuPanel.show("menu"));
+        menuPanel.addScreen(test);
+        gui.addMenuPanel(menuPanel);
+
+
+        gui.changeWindowSize(1920,1080);
+        menuPanel.show("menu");
+        gui.getFrame().setVisible(true);
+
+    }
+
+    public static void main(String args[]) {
+        javax.swing.SwingUtilities.invokeLater(new Runnable() {
+            public void run() {
+                makeGUI();
+            }
+        });
 
     }
 
