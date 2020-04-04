@@ -1,4 +1,4 @@
-package rekaur.ia;
+package corr.ui;
 import javax.swing.*;
 import java.awt.*;
 

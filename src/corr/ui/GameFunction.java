@@ -1,4 +1,4 @@
-package rekaur.ia;
+package corr.ui;
 
 /*
 This package makes use of the command pattern to simplify things like button presses.

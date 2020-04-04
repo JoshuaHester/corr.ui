@@ -1,4 +1,4 @@
-package rekaur.ia;
+package corr.ui;
 
 import javax.swing.*;
 
@@ -33,10 +33,11 @@ public class Demo {
                 height = 1050;
                 break;
             case 6:
+			
                 width = 1920;
                 height = 1080;
-                break;
-            default:
+				break;
+			default:
                 break;
 
         }
