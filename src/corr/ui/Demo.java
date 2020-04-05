@@ -3,7 +3,9 @@ package corr.ui;
 import javax.swing.*;
 
 public class Demo {
-
+/**
+strictly speaking, it feels outside the scope of this library to determin what resolutions to use for projects.
+*/
     public static int[] getStandardResolutions(int i){
         int width = 0;
         int height = 0;
@@ -44,7 +46,7 @@ public class Demo {
         int[] a = {width,height};
         return a;
     }
-
+//making an interface is similar to normal UI construction with the built-in Swing Library. However there is no nead to deal with ActionListeners
     public static void makeGUI(){
         GameWindow gui = new GameWindow();
         CardPanel menuPanel = new CardPanel();
