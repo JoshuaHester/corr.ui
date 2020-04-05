@@ -62,13 +62,13 @@ public class Demo {
         }
 
         mainMenu.addButton("Fullscreen", () -> gui.setFullScreen());
-        mainMenu.addButton("bird", () -> menuPanel.show("test"));
+        mainMenu.addButton("Menu Background Test", () -> menuPanel.show("test"));
         mainMenu.addButton("close",()-> System.exit(0));
 
 
         menuPanel.addScreen(mainMenu);
         MenuScreen test = new MenuScreen(50,50,"test");
-        test.addButton("bird",() -> menuPanel.show("menu"));
+        test.addButton("Back",() -> menuPanel.show("menu"));
         menuPanel.addScreen(test);
         gui.addMenuPanel(menuPanel);
 

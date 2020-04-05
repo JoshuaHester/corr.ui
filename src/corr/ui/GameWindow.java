@@ -15,8 +15,8 @@ public class GameWindow{
     private int bitdepth = 32;
     private int refreshRate = 60;
     private String directoryFilepath;
-    private String backgroundFilepath = "rekaur/ia/Art/krlogo.png";
-    private String iconFilepath = "rekaur/ia/Art/kricon.png";
+    private String backgroundFilepath = "corr/ui/Art/krlogo.png";
+    private String iconFilepath = "corr/ui/Art/kricon.png";
     private JLabel background;
     private GraphicsDevice graphicsHandler;
     private JLayeredPane layeredPane;
